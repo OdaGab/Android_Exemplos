@@ -11,6 +11,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var cor = ""
 
+    companion object{
+        const val ARQUIVO_PREFERENCIAS = "ArquivoPreferencias"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -20,28 +24,34 @@ class MainActivity : AppCompatActivity() {
 
         binding.cor1.setOnClickListener() {
             cor = "#FF03DAC5"
-            binding.btnTrocarCorFundo.setOnClickListener{
-                binding.layoutPrincipal.setBackgroundColor(Color.parseColor(cor))
-            }
+
         }
         binding.cor2.setOnClickListener(){
             cor = "#FFBB86FC"
-            binding.btnTrocarCorFundo.setOnClickListener{
-                binding.layoutPrincipal.setBackgroundColor(Color.parseColor(cor))
-            }
         }
+
         binding.cor3.setOnClickListener(){
-            cor = "#03A9F4"
-            binding.btnTrocarCorFundo.setOnClickListener{
-                binding.layoutPrincipal.setBackgroundColor(Color.parseColor(cor))
-            }
+            cor = "#0000FF"
         }
+
         binding.cor4.setOnClickListener(){
             cor = "#FF0000"
-            binding.btnTrocarCorFundo.setOnClickListener{
-                binding.layoutPrincipal.setBackgroundColor(Color.parseColor(cor))
             }
         }
+
+    private fun salvar(cor : String){
+
+        binding.layoutPrincipal.setBackgroundColor(Color.parseColor(cor))
+
+       binding.btnTrocarCorFundo.setOnClickListener{view -> 
+
+           val preferencias = getPreferences(ARQUIVO_PREFERENCIAS, MODE_PRIVATE)
+           val editor = preferencias.edit()
+           editor.putString("cor", cor)
+           editor.apply()
+       }
+    }
+    private fun snackbaar(){
 
     }
 }
